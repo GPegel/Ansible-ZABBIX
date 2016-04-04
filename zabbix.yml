@@ -5,3 +5,17 @@
   sudo: yes
   roles:
   - database
+
+- name: install and configure Zabbix Server
+  hosts: zabbix-servers
+  user: root
+  sudo: yes
+  roles:
+  - server
+
+- name: install and configure Zabbix Agent
+  hosts: zabbix-agents
+  user: root
+  sudo: yes
+  roles:
+  - agent

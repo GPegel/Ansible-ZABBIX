@@ -1,3 +1,9 @@
 [database-servers]
 192.168.56.110
+
+[zabbix-servers]
+192.168.56.111
+
+[zabbix-agents]
+192.168.56.110
 192.168.56.111
