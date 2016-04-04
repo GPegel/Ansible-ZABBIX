@@ -1,0 +1,7 @@
+---
+- name: install and configure Zabbix Database
+  hosts: all
+  user: root
+  sudo: yes
+  roles:
+  - database
