@@ -73,7 +73,7 @@ PidFile=/var/run/zabbix/zabbix_server.pid
 # Default:
 # DBHost=localhost
 
-DBHost={{ dbhost }}
+DBHost={{ ansible_hostname }}
 
 ### Option: DBName
 #	Database name.
@@ -83,7 +83,7 @@ DBHost={{ dbhost }}
 # Default:
 # DBName=
 
-DBName={{ dbname }}
+DBName={{ zabbix_db_name }}
 
 ### Option: DBSchema
 #	Schema name. Used for IBM DB2 and PostgreSQL.
@@ -99,7 +99,7 @@ DBName={{ dbname }}
 # Default:
 # DBUser=
 
-DBUser={{ dbuser }}
+DBUser={{ zabbix_db_user }}
 
 ### Option: DBPassword
 #	Database password. Ignored for SQLite.
@@ -108,7 +108,7 @@ DBUser={{ dbuser }}
 # Mandatory: no
 # Default:
 # DBPassword=
-DBPassword={{ dbpassword }}
+DBPassword={{ zabbix_db_password }}
 
 ### Option: DBSocket
 #	Path to MySQL socket.
