@@ -1,2 +1,8 @@
 ---
-# handlers file for server
+# Role: zabbix-server
+# File: handlers/main/main.yml
+- name: restart httpd-server
+  service: name=httpd state=restarted
+
+- name: restart zabbix-server
+  service: name=zabbix-server state=restarted

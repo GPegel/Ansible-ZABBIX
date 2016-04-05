@@ -1,16 +1,111 @@
 ---
-# These task installs and enables apache on webservers
-- name: ensure mysql is installed
-  yum: name={{ item }} state=present
+# Role: zabbix-database
+# File: tasks/main.yml
+- name: make sure mariadb-server is installed
+  yum:
+    name: "mariadb-server"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: be sure zabbix-server-mysql is installed
+  yum:
+    name: "zabbix-server-mysql"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: be sure the requirements are installed
+  yum:
+    name: "MySQL-python"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: be sure the zabbix database data path exists
+  file: path={{ dbpath }} state=directory owner=mysql
+        group=mysql mode=0755
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: be sure the mariadb database is configured
+  template: src="my.cnf.j2" dest=/etc/my.cnf
+    owner="root" group="root" mode=0644
+  notify:
+    - restart mariadb
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: be sure mariadb-server is running and enabled
+  service:
+    name: mariadb
+    state: running
+    enabled: yes
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: be sure the zabbix database is present
+  shell: /bin/mysql -e 'SHOW DATABASES;' | grep {{ dbname }}
+  register: databases
+  failed_when: databases.rc > 1
+  changed_when: 0
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: create the database if it doesn't exist
+  command: /usr/bin/mysql -e "create database {{ dbname }} character set utf8 collate utf8_bin;"
+  when: databases.rc != 0
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: allow access from the zabbix_server_frontend address
+  mysql_user: name={{ dbuser }} password={{ dbpassword }}
+    priv={{ dbname }}.*:ALL state=present host={{ zabbix_server_frontend }}
+  when: zabbix_server_frontend is defined
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: create the zabbix user for localhost
+  mysql_user: name={{ dbuser }} password={{ dbpassword }}
+    priv={{ dbname }}.*:ALL state=present
+  when: databases.rc != 0
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: create the zabbix user for test
+  mysql_user: name={{ dbuser }} password={{ dbpassword }}
+    priv={{ dbname }}.'192.168.56.108':ALL state=present
+  when: databases.rc != 0
+  tags:
+    - zabbix
+    - zabbix-database
+
+# TODO: very ugly, need to figure out why wildcard expansion doesn't work with shell command!
+- name: find schema location
+  shell: /bin/ls /usr/share/doc | grep zabbix-server-mysql-{{ zabbix_version }} | tail -n 1
+  register: contents
+  when: databases.rc != 0
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: load the mysql schemas
+  shell: /usr/bin/mysql -u{{ dbuser }} -p{{ dbpassword }} {{ dbname }} < /usr/share/doc/{{ contents.stdout}}/create/{{ item }}
   with_items:
-   - mariadb-server
-   - mariadb
-   - MySQL-python
-- name: ensure mysql is running
-  service: name=mariadb state=running enabled=yes
-- name: create application database
-  mysql_db: name={{ item }} state=present
-  with_items:
-   - zabbix_db01
-- name: create application user
-  mysql_user: name={{ dbuser }} password={{ dbpassword }} priv=*.*:ALL state=present
+    - schema.sql
+    - images.sql
+    - data.sql
+  when: databases.rc != 0
+  tags:
+    - zabbix
+    - zabbix-database

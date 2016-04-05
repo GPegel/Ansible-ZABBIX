@@ -1,2 +1,5 @@
 ---
-# handlers file for database
+# Role: zabbix-database
+# File: handlers/main/main.yml
+- name: restart mariadb
+  service: name=mariadb state=restarted

@@ -1,2 +1,59 @@
 ---
-# tasks file for server
+# role: zabbix-server
+# file: tasks/main.yml
+- name: be sure httpd is installed
+  yum:
+    name: "httpd"
+    state: present
+  tags:
+    - httpd
+
+- name: be sure zabbix-server is installed
+  yum:
+    name: "zabbix-server-mysql"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-server
+
+- name: be sure trousers package is up to date
+  yum:
+    name: "trousers"
+    state: latest
+  tags:
+    - zabbix
+    - zabbix-server
+
+- name: be sure the php-ldap package is installed
+  yum:
+    name: "php-ldap"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-server
+
+- name: be sure zabbix-server is configured
+  template: src="zabbix_server.conf.j2" dest=/etc/zabbix/zabbix_server.conf
+    owner="root" group="zabbix" mode=0640
+  notify:
+    - restart zabbix-server
+  tags:
+    - zabbix
+    - zabbix-server
+
+- name: be sure httpd-server is running and enabled
+  service:
+    name: httpd
+    state: running
+    enabled: yes
+  tags:
+    - httpd
+
+- name: be sure zabbix-server is running and enabled
+  service:
+    name: zabbix-server
+    state: running
+    enabled: yes
+  tags:
+    - zabbix
+    - zabbix_server
