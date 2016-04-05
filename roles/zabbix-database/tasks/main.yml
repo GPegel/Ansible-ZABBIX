@@ -77,7 +77,7 @@
 - name: allow one zabbix-server remote access if it's not running on the same host
   mysql_user: name={{ zabbix_db_user }} password={{ zabbix_db_password }}
     priv={{ zabbix_db_name }}.*:ALL state=present host={{ hostvars[groups['zabbix-server-backends'][0]]['ansible_eth0']['ipv4']['address'] }}
-  when: ("{{ hostvars[groups['zabbix-server-backends'][0]]['ansible_eth0']['ipv4']['address'] }}" != "{{ ansible_default_ipv4.address }}") and (zabbix_server_frontend is not defined)
+  when: ("{{ hostvars[groups['zabbix-server-backends'][0]]['ansible_eth0']['ipv4']['address'] }}" != "{{ ansible_default_ipv4.address }}" and (zabbix_server_frontend is not defined))
   tags:
     - zabbix
     - zabbix-database

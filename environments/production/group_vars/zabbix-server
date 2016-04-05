@@ -3,11 +3,11 @@
 # File: group_vars/zabbix-servers
 
 # Zabbix Instance name
-zabbix_server_name: "Production"
+zabbix_server_name: "Zabbix Production"
 
 # Override the zabbix server ip for the zabbix server
 zabbix_server_ip: localhost
 
 # Zabbix server loadbalanced address. If not specified the first server
 #specified in [zabbix-server-backends] is used.
-# zabbix_server_frontend: "10.10.10.10"
+# zabbix_server_frontend: "192.168.56.111"
