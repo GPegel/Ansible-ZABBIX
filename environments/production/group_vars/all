@@ -1,3 +1,5 @@
 ---
 # Zabbix version
 zabbix_version: "3.0"
+
+dbhost: "192.168.56.104"
