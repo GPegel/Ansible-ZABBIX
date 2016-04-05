@@ -1,6 +1,4 @@
 ---
-# tasks file for zabbix-web
----
 # role: zabbix-web
 # file: tasks/main.yml
 - name: be sure httpd is installed

@@ -1,25 +1,26 @@
 ---
-- name: install and configure Zabbix Database
-  hosts: database-servers
-  user: root
-  sudo: yes
+- hosts: zabbix-database-backends
+  vars_files:
+    - "{{ env }}/group_vars/zabbix-database-server"
   roles:
-  - repo
-  - server
-  - database
+    - common
+    - zabbix-agent
+    - zabbix-database
 
-- name: install and configure Zabbix Server
-  hosts: zabbix-servers
-  user: root
-  sudo: yes
+- hosts: zabbix-server-backends
+  vars_files:
+    - "{{ env }}/group_vars/zabbix-database-server"
+    - "{{ env }}/group_vars/zabbix-server"
   roles:
-  - repo
-  - server
+    - common
+    - zabbix-agent
+    - zabbix-server
 
-- name: install and configure Zabbix Web Front End
-  hosts: zabbix-agents
-  user: root
-  sudo: yes
+- hosts: zabbix-web-servers
+  vars_files:
+    - "{{ env }}/group_vars/zabbix-database-server"
+    - "{{ env }}/group_vars/zabbix-server"
   roles:
-  - repo
-  - agent
+    - common
+    - zabbix-agent
+    - zabbix-web
