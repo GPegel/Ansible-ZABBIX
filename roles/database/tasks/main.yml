@@ -76,7 +76,7 @@
 
 - name: create the zabbix user for localhost
   mysql_user: name={{ dbuser }} password={{ dbpassword }}
-    priv={{ dbname }}.*:ALL state=present
+    priv={{ dbname }}.*:ALL,GRANT state=present
   when: databases.rc != 0
   tags:
     - zabbix
@@ -84,27 +84,17 @@
 
 - name: create the zabbix user for test
   mysql_user: name={{ dbuser }} password={{ dbpassword }}
-    priv={{ dbname }}.'192.168.56.108':ALL state=present
-  when: databases.rc != 0
-  tags:
-    - zabbix
-    - zabbix-database
-
-# TODO: very ugly, need to figure out why wildcard expansion doesn't work with shell command!
-- name: find schema location
-  shell: /bin/ls /usr/share/doc | grep zabbix-server-mysql-{{ zabbix_version }} | tail -n 1
-  register: contents
+    priv={{ dbname }}.*:ALL state=present
   when: databases.rc != 0
   tags:
     - zabbix
     - zabbix-database
 
 - name: load the mysql schemas
-  shell: /usr/bin/mysql -u{{ dbuser }} -p{{ dbpassword }} {{ dbname }} < /usr/share/doc/{{ contents.stdout}}/create/{{ item }}
+  # shell: /usr/bin/mysql -u{{ dbuser }} -p{{ dbpassword }} {{ dbname }} < "zcat /usr/share/doc/zabbix-server-mysql-3.0.1/{{ item }}"
+  shell: /usr/share/doc/zabbix-server-mysql-3.0.1/ zcat {{ item }} | mysql -u{{ dbuser }} -p{{ dbpassword }} {{ dbname }}
   with_items:
-    - schema.sql
-    - images.sql
-    - data.sql
+    - create.sql.gz
   when: databases.rc != 0
   tags:
     - zabbix

@@ -1,5 +1,5 @@
 # Zabbix Database
-dbuser: zabbix_user
+dbuser: zabbix
 dbpassword: 12345
 dbname: zabbix
 dbpath: "/var/lib/mysql"
