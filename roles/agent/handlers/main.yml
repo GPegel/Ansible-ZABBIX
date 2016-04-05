@@ -1,5 +1,0 @@
----
-# handlers file for agent
-- name: restart zabbix-agent
-  service: name=zabbix-agent state=restarted
-  tags: zabbix

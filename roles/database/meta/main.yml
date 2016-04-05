@@ -1,6 +1,0 @@
----
-# Repo: zabbix-database
-# File: meta/main.yml
-dependencies:
-  - { role: common }
-  - { role: zabbix-repo }
