@@ -1,0 +1,7 @@
+---
+# handlers file for firewall
+- name: restart firewalld
+  service: name=firewalld state=restarted
+
+- name: reload firewalld
+  command: /bin/firewall-cmd --reload

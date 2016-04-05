@@ -1,0 +1,7 @@
+---
+# tasks file for common
+- name: be sure the EPEL repository is enabled
+  yum:
+    name: epel-release
+    state: installed
+  tags: repo

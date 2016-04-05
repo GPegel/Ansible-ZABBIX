@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+ <short>Zabbix Agent communication port</short>
+ <description>Zabbix Agent communication port</description>
+ <port protocol="tcp" port="10050"/>
+</service>

@@ -1,0 +1,24 @@
+---
+# tasks file for firewall
+- name: make sure firewalld is installed
+  yum:
+    name: "firewalld"
+    state: present
+  tags:
+    - firewall
+
+- name: make sure custom service for Zabbix Agent is available
+  copy: src=zabbix-agent.xml dest=/etc/firewalld/services/zabbix-agent.xml
+    group=root owner=root mode=0644
+  notify:
+    - reload firewalld
+  tags:
+    - firewall
+
+- name: be sure firewalld is running
+  service:
+    name: firewalld
+    state: running
+    enabled: yes
+  tags:
+    - firewall

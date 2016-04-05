@@ -1,12 +1,3 @@
-# Zabbix Database
-dbuser: zabbix
-dbpassword: 12345
-dbname: zabbix
-dbpath: "/var/lib/mysql"
-dbhost: 192.68.56.108
-
+---
 # Zabbix version
 zabbix_version: "3.0"
-
-# zabbix_server_frontend:
-zabbix_server_frontend: "localhost"

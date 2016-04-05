@@ -1,0 +1,30 @@
+---
+# tasks file for apache
+- name: install Apache
+  yum:
+    name: "httpd"
+    state: present
+  tags:
+    - httpd
+
+- name: install Apache Proxy Module
+  yum:
+    name: "mod_proxy_*"
+    state: present
+  tags:
+    - httpd
+
+- name: install Apache LDAP Module
+  yum:
+    name: "mod_ldap"
+    state: present
+  tags:
+    - httpd
+
+- name: be sure HTTPD is running and enabled
+  service:
+    name: httpd
+    state: running
+    enabled: yes
+  tags:
+    - httpd

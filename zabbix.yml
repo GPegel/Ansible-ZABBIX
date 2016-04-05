@@ -4,6 +4,8 @@
   user: root
   sudo: yes
   roles:
+  - repo
+  - server
   - database
 
 - name: install and configure Zabbix Server
@@ -14,9 +16,10 @@
   - repo
   - server
 
-- name: install and configure Zabbix Agent
+- name: install and configure Zabbix Web Front End
   hosts: zabbix-agents
   user: root
   sudo: yes
   roles:
+  - repo
   - agent

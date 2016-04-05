@@ -1,0 +1,45 @@
+---
+# tasks file for zabbix-web
+---
+# role: zabbix-web
+# file: tasks/main.yml
+- name: be sure httpd is installed
+  yum:
+    name: "httpd"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-web
+
+- name: be sure zabbix-web-mysql is installed
+  yum:
+    name: "zabbix-web-mysql"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-web
+
+
+- name: be sure zabbix-web-mysql is configured
+  template: src="zabbix.conf.php.j2" dest=/etc/zabbix/web/zabbix.conf.php
+    owner="apache" group="apache" mode=0640
+  notify:
+    - restart httpd
+  tags:
+    - zabbix
+    - zabbix-web
+
+- name: be sure php parameters are correct
+  copy: src=php.ini dest=/etc/php.ini owner=root group=root mode=0644
+  tags:
+    - zabbix
+    - zabbix-web
+
+- name: be sure httpd is running and enabled
+  service:
+    name: httpd
+    state: running
+    enabled: yes
+  tags:
+    - zabbix
+    - zabbix-web
