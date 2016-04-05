@@ -1,3 +1,0 @@
----
-zabbix_repo_url: "http://repo.zabbix.com/zabbix/{{ zabbix_version }}/rhel/7/x86_64/zabbix-release-{{ zabbix_version }}-1.el7.noarch.rpm"
-zabbix_repo_gpg_key_url: http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX
