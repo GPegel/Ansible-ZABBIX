@@ -1,0 +1,6 @@
+---
+# File: gatherfacts.yml
+# Refresh the fact cache
+- hosts: all
+  gather_facts: True
+  tasks: []

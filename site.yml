@@ -1,4 +1,4 @@
 ---
 # file: site.yml
-
+- include: gatherfacts.yml
 - include: zabbix.yml
