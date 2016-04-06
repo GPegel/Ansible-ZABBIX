@@ -1,0 +1,28 @@
+- name: check if jdk1.8.0_65 is installed
+  command: rpm -q jdk1.8.0_65
+  register: java_installed
+  changed_when: 0
+  failed_when: java_installed.rc > 1
+  tags:
+    - java
+
+- name: copy Oracle JDK rpm to /tmp
+  copy: src="jdk-8u65-linux-x64.rpm" dest="/tmp/jdk-8u65-linux-x64.rpm"
+  when: java_installed.rc == 1
+  tags:
+    - java
+
+- name: install Oracle JDK rpm
+  yum:
+    name: /tmp/jdk-8u65-linux-x64.rpm
+    state: present
+  when: java_installed.rc == 1
+  tags:
+    - java
+
+- name: make sure /tmp/jdk-8u65-linux-x64.rpm is removed
+  file:
+    path: "/tmp/jdk-8u65-linux-x64.rpm"
+    state: absent
+  tags:
+    - java

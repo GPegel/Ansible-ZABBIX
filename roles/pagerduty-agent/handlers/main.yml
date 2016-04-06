@@ -1,0 +1,6 @@
+---
+# Role: pagerduty-agent
+# File: handlers/main.yml
+- name: restart pdagent
+  service: name=pdagent state=restarted
+  tags: pdagent

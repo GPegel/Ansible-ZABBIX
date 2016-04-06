@@ -1,0 +1,35 @@
+---
+# Role: ibm-jdk
+# File: tasks/main.yml
+- name: check if ibm jdk is installed
+  stat: path="{{ ibm_jdk_dir }}"
+  register: ibm_jdk_installed
+  tags: ibm-jdk
+
+- name: place IBM JDK
+  copy: src="ibm-java-sdk-7.1-3.10-x86_64-archive.bin" dest="/tmp/ibm-java.bin"
+    mode=0755
+  when: ibm_jdk_installed.stat.exists == False
+  tags: ibm-jdk
+
+- name: place the IBM JDK installer repsonse file
+  template: src="ibm-response.j2" dest="/tmp/ibm-response"
+  when: ibm_jdk_installed.stat.exists == False
+  tags: ibm-jdk
+
+- name: install the IBM JDK
+  shell: /tmp/ibm-java.bin -f /tmp/ibm-response
+  when: ibm_jdk_installed.stat.exists == False
+  tags: ibm-jdk
+
+- name: remove the IBM JDK installer file
+  file:
+    path: "/tmp/ibm-java.bin"
+    state: absent
+  tags: ibm-jdk
+
+- name: remove the IBM JDK installer file
+  file:
+    path: "/tmp/ibm-respnse"
+    state: absent
+  tags: ibm-jdk

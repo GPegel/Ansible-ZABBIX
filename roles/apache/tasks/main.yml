@@ -1,5 +1,6 @@
 ---
-# tasks file for apache
+# Role: apache
+# File tasks/main.yml
 - name: install Apache
   yum:
     name: "httpd"

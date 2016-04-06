@@ -1,0 +1,27 @@
+---
+# Role: pagerduty-agent
+# File: tasks/main.yml
+
+- name: be sure the pdagent repo file is present
+  copy: src="pdagent.repo" dest=/etc/yum.repos.d/pdagent.repo owner=root mode=0644
+  tags:
+    - repo
+    - pdagent
+
+- name: be sure pdagent is installed
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - pdagent
+    - pdagent-integrations
+  tags:
+    - pdagent
+
+- name: be sure pdagent is running and enabled
+  service:
+    name: pdagent
+    state: running
+    enabled: yes
+  tags:
+    - pdagent

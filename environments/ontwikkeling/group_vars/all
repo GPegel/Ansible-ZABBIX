@@ -6,4 +6,4 @@ zabbix_version: "2.4"
 ntp: 172.29.81.104
 
 # Elasticsearch cluster name
-es_cluster_name: logging-lacent-prod
+es_cluster_name: logging-lacent-ota

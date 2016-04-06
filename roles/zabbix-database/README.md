@@ -1,38 +1,39 @@
-Role Name
-=========
 
-A brief description of the role goes here.
+# role: zabbix-database
 
-Requirements
-------------
+This role provides a MySQL database to use with Zabbix. It will configure the schema's and create the Zabbix database users.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+## Configurable parameters:
 
-Role Variables
---------------
+The directory to hold that database data:
+```
+zabbix_database_path: "/data/mysql"
+```
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Database credentials for the Zabbix Server and Zabbix Web Server:
+```
+zabbix_db_name: "zabbix"
+zabbix_db_user: "zabbix"
+zabbix_db_password: "{{ vaulted_zabbix_db_password }}"
+zabbix_db_web_user: "zabbix-web"
+zabbix_db_web_password: "{{ vaulted_zabbix_db_password }}"
+```
 
-Dependencies
-------------
+The frontend address to reach the Zabbix Database on. Useful for running in a multinode/clustered setup:
+```
+zabbix_db_frontend: "10.10.10.101"
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Related server groups:
 
-Example Playbook
-----------------
+* [zabbix_server_backends]
+* [zabbix_database_backends]
+* [zabbix_web_servers]
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Behaviour
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+MariaDB will be installed on all specified hosts in [zabbix_database_backends]. The databases will be configured in standalone mode at this time. The specified Zabbix users and passwords will be configured and the Zabbix specific schema's are loaded.
 
-License
--------
+Remote access to the database will be granted for every server in [zabbix_web_servers]. Remote access for a Zabbix Server will be granted to variable 'zabbix_server_frontend'. If this parameter is not specified it will only allow access the first server in [zabbix_server_backends] to prevent multiple zabbix-servers from writing to the database simultaneously causing corruption.
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+In short, if you have multiple zabbix-servers, be sure to use a loadbalanced address and set the parameter 'zabbix_server_frontend' with the appropiate value.

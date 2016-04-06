@@ -74,25 +74,23 @@
     - zabbix
     - zabbix-database
 
-#### This part needs to work but it doesn't.
-#### I have to check this later.
 - name: allow one zabbix-server remote access if it's not running on the same host
   mysql_user: name={{ zabbix_db_user }} password={{ zabbix_db_password }}
-    priv={{ zabbix_db_name }}.*:ALL state=present host={{ hostvars[groups['zabbix-server-backends'][0]]['ansible_enp0s8']['ipv4']['address'] }}
-  when: ("{{ hostvars[groups['zabbix-server-backends'][0]]['ansible_enp0s8']['ipv4']['address'] }}" != "{{ ansible_default_ipv4.address }}" and (zabbix_server_frontend is not defined))
+    priv={{ zabbix_db_name }}.*:ALL state=present host={{ hostvars[groups['zabbix_server_backends'][0]]['ansible_enp0s8']['ipv4']['address'] }}
+  when: ("{{ hostvars[groups['zabbix_server_backends'][0]]['ansible_enp0s8']['ipv4']['address'] }}" != "{{ ansible_default_ipv4.address }}") and (zabbix_server_frontend is not defined)
   tags:
     - zabbix
     - zabbix-database
 
-- name: allow the zabbix web server group access to the database
-  mysql_user: name={{ zabbix_db_web_user }} password={{ zabbix_db_web_password }}
-    priv={{ zabbix_db_name }}.*:ALL state=present host={{ hostvars[item]['ansible_enp0s8']['ipv4']['address'] }}
-  when: ("{{ hostvars[item]['ansible_enp0s8']['ipv4']['address'] }}" != "{{ ansible_default_ipv4.address }}")
-  with_items:
-    groups['zabbix-web-servers']
-  tags:
-    - zabbix
-    - zabbix-database
+# - name: allow the zabbix web server group access to the database
+#   mysql_user: name={{ zabbix_db_web_user }} password={{ zabbix_db_web_password }}
+#     priv={{ zabbix_db_name }}.*:ALL state=present host={{ hostvars[groups['zabbix_web_servers'][0]]['ansible_enp0s8']['ipv4']['address'] }}
+#   when: ("{{ hostvars[item]['ansible_enp0s8']['ipv4']['address'] }}" != "{{ ansible_default_ipv4.address }}")
+#   # with_items:
+#   #   groups['zabbix_web_servers']
+#   tags:
+#     - zabbix
+#     - zabbix-database
 
 - name: create the zabbix user for localhost
   mysql_user: name={{ zabbix_db_user }} password={{ zabbix_db_password }}
@@ -112,10 +110,11 @@
     - zabbix-database
 
 - name: load the mysql schemas
-  # shell: /usr/bin/mysql -u{{ zabbix_db_user }} -p{{ zabbix_db_password }} {{ zabbix_db_name }} < /usr/share/doc/{{ contents.stdout}}/create/{{ item }}
-  shell: /usr/share/doc/zabbix-server-mysql-3.0.1/ zcat {{ item }} | mysql -u{{ dbuser }} -p{{ dbpassword }} {{ dbname }}
+  shell: /usr/bin/mysql -u{{ zabbix_db_user }} -p{{ zabbix_db_password }} {{ zabbix_db_name }} < /usr/share/doc/{{ contents.stdout}}/create/{{ item }}
   with_items:
-    - create.sql.gz
+    - schema.sql
+    - images.sql
+    - data.sql
   when: databases.rc != 0
   tags:
     - zabbix

@@ -1,0 +1,6 @@
+---
+# Role: zabbix-pagerduty
+# File: meta/main.yml
+dependencies:
+  - { role: pagerduty-agent }
+  - { role: zabbix-server }

@@ -1,5 +1,6 @@
 ---
-# handlers file for agent
+# Role: zabbix-agent
+# File: handlers/main/main.yml
 - name: restart zabbix-agent
   service: name=zabbix-agent state=restarted
   tags: zabbix

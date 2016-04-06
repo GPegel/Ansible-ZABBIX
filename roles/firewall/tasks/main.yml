@@ -1,5 +1,6 @@
 ---
-# tasks file for firewall
+# Role: firewall
+# File tasks/main.yml
 - name: make sure firewalld is installed
   yum:
     name: "firewalld"

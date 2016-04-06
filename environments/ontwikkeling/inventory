@@ -1,0 +1,11 @@
+[zabbix_server_backends]
+192.168.56.211
+192.168.56.212
+
+[zabbix_database_backends]
+192.168.56.204
+192.168.56.210
+
+[zabbix_web_servers]
+192.168.56.213
+192.168.56.214

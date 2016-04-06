@@ -1,0 +1,7 @@
+---
+# Role: zabbix-pagerduty
+# File: tasks/main.yml
+
+- name: be sure the pd-zabbix symlink exists
+  file: src="/usr/share/pdagent-integrations/bin/pd-zabbix" dest="/usr/lib/zabbix/alertscripts/pd-zabbix" state=link
+  tags: pdagent

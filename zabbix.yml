@@ -1,5 +1,5 @@
 ---
-- hosts: zabbix-database-backends
+- hosts: zabbix_database_backends
   vars_files:
     - "{{ env }}/group_vars/zabbix-database-server"
   roles:
@@ -7,7 +7,7 @@
     - zabbix-agent
     - zabbix-database
 
-- hosts: zabbix-server-backends
+- hosts: zabbix_server_backends
   vars_files:
     - "{{ env }}/group_vars/zabbix-database-server"
     - "{{ env }}/group_vars/zabbix-server"
@@ -15,8 +15,9 @@
     - common
     - zabbix-agent
     - zabbix-server
+    - zabbix-pagerduty
 
-- hosts: zabbix-web-servers
+- hosts: zabbix_web_servers
   vars_files:
     - "{{ env }}/group_vars/zabbix-database-server"
     - "{{ env }}/group_vars/zabbix-server"

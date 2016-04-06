@@ -40,7 +40,7 @@ LogFile=/var/log/zabbix/zabbix_server.log
 # Default:
 # LogFileSize=1
 
-LogFileSize=128
+LogFileSize=0
 
 ### Option: DebugLevel
 #	Specifies debug level
@@ -53,7 +53,9 @@ LogFileSize=128
 # Mandatory: no
 # Range: 0-4
 # Default:
-DebugLevel=3
+# DebugLevel=3
+# DebugLevel=4
+# DebugLevel=4
 
 ### Option: PidFile
 #	Name of PID file.
@@ -73,7 +75,13 @@ PidFile=/var/run/zabbix/zabbix_server.pid
 # Default:
 # DBHost=localhost
 
-DBHost={{ dbhost }}
+DBHost={% if zabbix_db_frontend is defined%}
+{{ zabbix_db_frontend }}
+{% elif ansible_default_ipv4.address == hostvars[groups['zabbix_database_backends'][0]]['ansible_enp0s8']['ipv4']['address'] %}
+localhost
+{% else %}
+{{ hostvars[groups['zabbix_database_backends'][0]]['ansible_enp0s8']['ipv4']['address'] }}
+{% endif %}
 
 ### Option: DBName
 #	Database name.
@@ -293,6 +301,8 @@ SNMPTrapperFile=/var/log/snmptt/snmptt.log
 # Mandatory: no
 # Default:
 # ListenIP=0.0.0.0
+
+# ListenIP=127.0.0.1
 
 ### Option: HousekeepingFrequency
 #	How often Zabbix will perform housekeeping procedure (in hours).

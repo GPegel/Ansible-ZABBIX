@@ -1,7 +1,9 @@
 ---
-# handlers file for firewall
+# Role: firewall
+# File: handlers/main/main.yml
 - name: restart firewalld
   service: name=firewalld state=restarted
 
 - name: reload firewalld
   command: /bin/firewall-cmd --reload
+  

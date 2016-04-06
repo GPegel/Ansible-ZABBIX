@@ -17,7 +17,6 @@
     - zabbix
     - zabbix-web
 
-
 - name: be sure zabbix-web-mysql is configured
   template: src="zabbix.conf.php.j2" dest=/etc/zabbix/web/zabbix.conf.php
     owner="apache" group="apache" mode=0640
