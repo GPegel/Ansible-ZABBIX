@@ -110,7 +110,7 @@
     - zabbix-database
 
 - name: load the mysql schemas
-  shell: /usr/share/doc/zabbix-server-mysql-3.0.1/ zcat {{ item }} | mysql -u{{ zabbix_db_user }} -p{{ zabbix_db_password }} {{ zabbix_db_name }}
+  shell: /usr/share/doc/zabbix-server-mysql-3.0.1/ zcat {{ item }} | mysql -u root {{ zabbix_db_name }}
   with_items:
     - create.sql.gz
   when: databases.rc != 0

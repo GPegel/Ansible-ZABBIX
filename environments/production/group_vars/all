@@ -1,6 +1,6 @@
 ---
 # Zabbix version
-zabbix_version: "2.4"
+zabbix_version: "3.0"
 
 # NTP server
 ntp: 172.29.81.104
