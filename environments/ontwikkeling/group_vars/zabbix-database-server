@@ -1,6 +1,6 @@
 ---
 # Database data location
-zabbix_database_path: "/data/mysql"
+zabbix_database_path: "/var/lib/mysql"
 
 # Database credentials
 zabbix_db_name: "zabbix"

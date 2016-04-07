@@ -3,7 +3,7 @@
 # File: group_vars/zabbix-servers
 
 # Zabbix Instance name
-zabbix_server_name: "Lacent Production"
+zabbix_server_name: "Zabbix Production"
 
 # Override the zabbix server ip for the zabbix server
 zabbix_server_ip: localhost

@@ -7,7 +7,7 @@ This role provides a MySQL database to use with Zabbix. It will configure the sc
 
 The directory to hold that database data:
 ```
-zabbix_database_path: "/data/mysql"
+zabbix_database_path: "/var/lib/mysql"
 ```
 
 Database credentials for the Zabbix Server and Zabbix Web Server:

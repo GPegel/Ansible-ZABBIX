@@ -1,7 +1,6 @@
 <?php
 // Zabbix GUI configuration file.
 global $DB;
-
 $DB['TYPE']     = 'MYSQL';
 $DB['SERVER']   = '{% if zabbix_db_frontend is defined %}
 {{ zabbix_db_frontend }}';
@@ -18,10 +17,8 @@ $DB['PORT']     = '{% if ansible_default_ipv4.address  == hostvars[groups['zabbi
 $DB['DATABASE'] = '{{ zabbix_db_name }}';
 $DB['USER']     = '{{ zabbix_db_web_user }}';
 $DB['PASSWORD'] = '{{ zabbix_db_web_password }}';
-
 // Schema name. Used for IBM DB2 and PostgreSQL.
 $DB['SCHEMA'] = '';
-
 $ZBX_SERVER      = '{% if zabbix_server_frontend is defined %}
 {{ zabbix_server_frontend }}';
 {% elif ansible_default_ipv4.address == hostvars[groups['zabbix_server_backends'][0]]['ansible_enp0s8']['ipv4']['address'] %}
@@ -31,6 +28,5 @@ localhost';
 {% endif %}
 $ZBX_SERVER_PORT = '10051';
 $ZBX_SERVER_NAME = '{{ zabbix_server_name }}';
-
 $IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
 ?>
