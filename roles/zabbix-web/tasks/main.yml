@@ -40,3 +40,7 @@
   tags:
     - zabbix
     - zabbix-web
+
+- name: Change policy and state of SELinux
+  selinux:
+    state=disabled
