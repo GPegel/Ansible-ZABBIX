@@ -4,6 +4,3 @@ zabbix_version: "3.0"
 
 # NTP server
 ntp: 172.29.81.104
-
-# Elasticsearch cluster name
-es_cluster_name: logging-lacent-prod

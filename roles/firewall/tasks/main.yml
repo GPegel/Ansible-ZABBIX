@@ -13,30 +13,42 @@
   register: iptablesrules
   always_run: yes
   sudo: true
+  tags:
+    - firewall
 
 - name: Apache HTTP | add Apache HTTP iptable rule
   command: /sbin/iptables -I INPUT 1 -p tcp --dport http -j ACCEPT -m comment --comment "Apache"
   sudo: true
   when: iptablesrules.stdout.find("Apache") == -1
+  tags:
+    - firewall
 
 - name: Apache HTTPS | add Apache HTTPS iptable rule
   command: /sbin/iptables -I INPUT 1 -p tcp --dport https -j ACCEPT -m comment --comment "Apache HTTPS"
   sudo: true
   when: iptablesrules.stdout.find("Apache HTTPS") == -1
+  tags:
+    - firewall
 
 - name: MySQL TCP | add MySQL TCP iptable rule
   command: /sbin/iptables -I INPUT 1 -p tcp --dport 3306 -j ACCEPT -m comment --comment "MySQL TCP"
   sudo: true
   when: iptablesrules.stdout.find("MySQL TCP") == -1
+  tags:
+    - firewall
 
 - name: MySQL UDP | add MySQL UDP iptable rule
   command: /sbin/iptables -I INPUT 1 -p udp --dport 3306 -j ACCEPT -m comment --comment "MySQL UDP"
   sudo: true
   when: iptablesrules.stdout.find("MySQL UDP") == -1
+  tags:
+    - firewall
 
 - name: save iptables
   command: iptables-save
   sudo: true
+  tags:
+    - firewall
 
 - name: make sure custom service for Zabbix Agent is available
   copy: src=zabbix-agent.xml dest=/etc/firewalld/services/zabbix-agent.xml

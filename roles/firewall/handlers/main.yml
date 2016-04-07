@@ -6,9 +6,3 @@
 
 - name: reload firewalld
   command: /bin/firewall-cmd --reload
-
-- name: reload iptables
-  service:
-    name: ufw
-    state: restarted
-  sudo: true

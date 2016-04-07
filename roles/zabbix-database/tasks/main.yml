@@ -85,9 +85,6 @@
 - name: allow the zabbix web server group access to the database
   mysql_user: name={{ zabbix_db_web_user }} password={{ zabbix_db_web_password }}
     priv={{ zabbix_db_name }}.*:ALL state=present host={{ hostvars[groups['zabbix_web_servers'][0]]['ansible_enp0s8']['ipv4']['address'] }}
-  # when: ("{{ hostvars[item]['ansible_enp0s8']['ipv4']['address'] }}" != "{{ ansible_default_ipv4.address }}")
-  # with_items:
-  #   groups['zabbix_web_servers']
   tags:
     - zabbix
     - zabbix-database

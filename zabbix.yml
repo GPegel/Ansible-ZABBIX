@@ -6,6 +6,7 @@
     - common
     - zabbix-agent
     - zabbix-database
+    - firewall
 
 - hosts: zabbix_server_backends
   vars_files:
