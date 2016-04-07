@@ -8,6 +8,7 @@ $ ssh-copy-id root@ip-address
 Enter your password and continue.
 
 To start the play:
+
 $ ansible-playbook choose-your-yaml-file.yml -i environments/production -e env=environments/production -u root
 
 # Post-installation:
@@ -23,7 +24,7 @@ Do not forget to enable the Zabbix Host in the GUI:
 If you get any error messages saying something about undefined variables then have a look at this: ['ansible_enp0s8']['ipv4']['address'] As you can see I've used 'enp0s8' instead of eth0 because I've tested this script in my own local virtual environment within VirtualBox. So please change it back to whatever NIC your IP addresses of your hosts are listening to.
 
 #To-do list:
-- Zabbix Agent on Zabbix server is disabled. The error message is "Received empty respone from Zabbix Agent at [127.0.0.1]. Assuming that agent dropped connection because of access permisions"
+- Zabbix Agents are not available. I guess this is Firewall related. The error message is "Received empty respone from Zabbix Agent at [127.0.0.1]. Assuming that agent dropped connection because of access permisions"
 - For some reason are the IPTables not filled in the "Zabbix Database" role when I run the playbook for the first time on a new target. When I run the playbook for the second time on that same target than they are filled.
 - Remove "Common" role.
 - After enabling Host, still Zabbix is not running message appears. In CLI run 'setenforce 0', then refresh page and tadaaa... the server is running. (FIXED)
