@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<service>
- <short>Elasticsearch node communication</short>
- <description>Elasticsearch node communication</description>
- <port protocol="tcp" port="9200-9300"/>
-</service>

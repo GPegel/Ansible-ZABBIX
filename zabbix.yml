@@ -16,6 +16,7 @@
     - zabbix-agent
     - zabbix-server
     - zabbix-pagerduty
+    - firewall
 
 - hosts: zabbix_web_servers
   vars_files:
@@ -25,3 +26,4 @@
     - common
     - zabbix-agent
     - zabbix-web
+    - firewall

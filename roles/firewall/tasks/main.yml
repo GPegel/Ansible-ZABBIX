@@ -8,9 +8,19 @@
   tags:
     - firewall
 
-- name: make sure custom service for Zabbix Agent is available
+- name: make sure custom service for Zabbix Agent and HTTP is available
   copy: src=zabbix-agent.xml dest=/etc/firewalld/services/zabbix-agent.xml
     group=root owner=root mode=0644
+  notify:
+    - reload firewalld
+  tags:
+    - firewall
+
+- name: Open ports on server
+  shell: firewall-cmd --zone=public --add-port={{ item }}/tcp --permanent
+  with_items:
+    - 80
+    - 3306
   notify:
     - reload firewalld
   tags:
