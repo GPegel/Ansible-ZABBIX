@@ -3,6 +3,7 @@
 This playbook creates an environment for running Zabbix 3.0.1 on Apache.
 
 The following roles will be installed:
+
 1. Apache
 2. Firewall
 3. HTOP
