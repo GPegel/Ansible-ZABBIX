@@ -3,7 +3,6 @@
   vars_files:
     - "{{ env }}/group_vars/zabbix-database-server"
   roles:
-    - common
     - zabbix-agent
     - zabbix-database
     - firewall
@@ -13,7 +12,6 @@
     - "{{ env }}/group_vars/zabbix-database-server"
     - "{{ env }}/group_vars/zabbix-server"
   roles:
-    - common
     - zabbix-agent
     - zabbix-server
     - zabbix-pagerduty
@@ -24,7 +22,6 @@
     - "{{ env }}/group_vars/zabbix-database-server"
     - "{{ env }}/group_vars/zabbix-server"
   roles:
-    - common
     - zabbix-agent
     - zabbix-web
     - firewall

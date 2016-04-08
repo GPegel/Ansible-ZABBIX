@@ -97,7 +97,6 @@
     - zabbix
     - zabbix-database
 
-# TODO: very ugly, need to figure out why wildcard expansion doesn't work with shell command!
 - name: find schema location
   shell: /bin/ls /usr/share/doc | grep zabbix-server-mysql-{{ zabbix_version }} | tail -n 1
   register: contents

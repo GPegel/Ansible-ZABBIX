@@ -44,6 +44,13 @@
   tags:
     - firewall
 
+- name: Zabbix | add Zabbix iptable rule
+  command: /sbin/iptables -I INPUT 1 -p tcp --dport 10050 -j ACCEPT -m comment --comment "Zabbix TCP"
+  sudo: true
+  when: iptablesrules.stdout.find("Zabbix TCP") == -1
+  tags:
+    - firewall
+
 - name: save iptables
   command: iptables-save
   sudo: true
