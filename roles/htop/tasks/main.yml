@@ -1,0 +1,16 @@
+---
+# tasks file for htop
+
+- name: make sure Epel-Release is installed
+  yum:
+    name: "epel-release"
+    state: present
+  tags:
+    - htop
+
+- name: make sure HTOP is installed
+  yum:
+    name: "htop"
+    state: present
+  tags:
+    - htop

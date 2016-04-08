@@ -6,6 +6,7 @@
     - zabbix-agent
     - zabbix-database
     - firewall
+    - htop
 
 - hosts: zabbix_server_backends
   vars_files:
@@ -16,6 +17,7 @@
     - zabbix-server
     - zabbix-pagerduty
     - firewall
+    - htop 
 
 - hosts: zabbix_web_servers
   vars_files:
