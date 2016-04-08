@@ -1,4 +1,5 @@
 # Ansible-ZABBIX playbook for CentOS 7
+Created with Ansible version 2.0.1.0
 
 This playbook creates an cluster environment for running Zabbix 3.0.1 on Apache. In my case I've tested this with 2 Zabbix server backends en 2 database backends.
 
