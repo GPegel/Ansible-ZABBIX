@@ -5,11 +5,11 @@ This playbook creates an cluster environment for running Zabbix 3.0.1 on Apache.
 
 The following roles will be installed:
 
-1. Apache
-2. Firewall
-3. HTOP
-4. Pagerduty-Agent
-5. Zabbix
+1. Apache (HTTP server)
+2. Firewall (security)
+3. HTOP (small monitoring tool inside Linux)
+4. Pagerduty-Agent (send Zabbix allerts to Pagerduty)
+5. Zabbix (Server, Agent, Database, Repo and frontend)
 
 Each role is configured to copy automatically (configuration) files when needed. If you encounter some strange behavior, then edit the configuration files in Ansible and run the playbook again. Usually the files are located in "roles/role-name/templates".
 

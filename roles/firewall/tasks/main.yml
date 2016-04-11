@@ -44,10 +44,17 @@
   tags:
     - firewall
 
-- name: Zabbix | add Zabbix iptable rule
-  command: /sbin/iptables -I INPUT 1 -p tcp --dport 10050 -j ACCEPT -m comment --comment "Zabbix TCP"
+- name: Zabbix | add Zabbix port 10050 iptable rule
+  command: /sbin/iptables -I INPUT 1 -p tcp --dport 10050 -j ACCEPT -m comment --comment "Zabbix TCP 10050"
   sudo: true
-  when: iptablesrules.stdout.find("Zabbix TCP") == -1
+  when: iptablesrules.stdout.find("Zabbix TCP 10050") == -1
+  tags:
+    - firewall
+
+- name: Zabbix | add Zabbix port 10051 iptable rule
+  command: /sbin/iptables -I INPUT 1 -p tcp --dport 10051 -j ACCEPT -m comment --comment "Zabbix TCP 10051"
+  sudo: true
+  when: iptablesrules.stdout.find("Zabbix TCP 10051") == -1
   tags:
     - firewall
 
