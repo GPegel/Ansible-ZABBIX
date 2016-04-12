@@ -16,3 +16,8 @@ pid-file=/var/run/mariadb/mariadb.pid
 # include all files from the config directory
 #
 !includedir /etc/my.cnf.d
+
+# [Replication Area]
+# server-id = 1 (or 2)
+# log-bin = /var/log/mysql/mysql-bin.log
+# binlog_do_db = {{ zabbix_db_name }}
