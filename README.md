@@ -47,6 +47,7 @@ If you get any error messages saying something about undefined variables then ha
 As you can see I've used 'enp0s8' instead of eth0 because I've tested this script in my own local virtual environment within VirtualBox. So please change it back to whatever NIC your IP addresses of your hosts are listening to.
 
 # To-do list:
+- Add replication between database servers.
 - Zabbix Agents are not available. I guess this is Firewall related. The error message is "Received empty respone from Zabbix Agent at [127.0.0.1]. Assuming that agent dropped connection because of access permissions" **(FIXED)**
 - For some reason are the IPTables not filled in the "Zabbix Database" role when I run the playbook for the first time on a new target. When I run the playbook for the second time on that same target than they are filled. **(FIXED)**
 - Remove "Common" role. **(FIXED)**
