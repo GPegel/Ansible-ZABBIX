@@ -1,0 +1,19 @@
+---
+# Database data location
+zabbix_database_path: "/var/lib/mysql"
+
+# Database credentials
+zabbix_db_name: "zabbix"
+zabbix_db_user: "zabbix"
+zabbix_db_password: "zabbix123"
+zabbix_db_web_user: "zabbix-web"
+zabbix_db_web_password: "zabbix-web123"
+
+# Database loadbalanced address. If not specified the first server specified in
+# [zabbix_database_backends] is used.
+# zabbix_db_frontend: "10.10.10.10"
+
+# Database replication
+mysql_repl_role: slave
+mysql_repl_master: 192.168.56.102
+mysql_db_id: 2
