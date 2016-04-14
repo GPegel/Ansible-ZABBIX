@@ -2,8 +2,14 @@
 192.168.56.104
 192.168.56.105
 
-[zabbix_database_backends]
+[zabbix_database_backends:children]
+zabbix_database_master
+zabbix_database_slave
+
+[zabbix_database_master]
 192.168.56.102
+
+[zabbix_database_slave]
 192.168.56.103
 
 [zabbix_web_servers]

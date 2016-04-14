@@ -1,0 +1,23 @@
+# A list that has all the databases to be
+# created and their replication status:
+mysql_db:
+  - name: zabbix
+    replicate: yes
+
+# A list of the mysql users to be created
+# and their password and privileges:
+mysql_users:
+  - name: {{ zabbix_db_user }}
+    host: localhost
+    pass: {{ zabbix_db_password }}
+    priv: "zabbix.*:ALL"
+  - name: {{ zabbix_db_user }}
+    host: "%"
+    pass: {{ zabbix_db_password }}
+    priv: "zabbix.*:ALL"
+
+# If the database is replicated the users
+# to be used for replication:
+mysql_repl_user:
+  - name: repl
+    pass: repl

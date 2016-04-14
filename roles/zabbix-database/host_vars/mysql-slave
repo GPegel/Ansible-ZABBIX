@@ -1,0 +1,3 @@
+mysql_repl_role: slave
+mysql_repl_master: {{ zabbix_datase_master }}
+mysql_db_id: 2
