@@ -4,16 +4,18 @@ mysql_db:
   - name: zabbix
     replicate: yes
 
+mysql_slow_log: /var/log/mysqld-slow.log
+
 # A list of the mysql users to be created
 # and their password and privileges:
 mysql_users:
-  - name: {{ zabbix_db_user }}
+  - name: zabbix
     host: localhost
-    pass: {{ zabbix_db_password }}
+    pass: zabbix123
     priv: "zabbix.*:ALL"
-  - name: {{ zabbix_db_user }}
+  - name: zabbix
     host: "%"
-    pass: {{ zabbix_db_password }}
+    pass: zabbix123
     priv: "zabbix.*:ALL"
 
 # If the database is replicated the users

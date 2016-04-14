@@ -1,7 +1,16 @@
 ---
-- hosts: zabbix_database_backends
+- hosts: zabbix_database_master
   vars_files:
-    - "{{ env }}/group_vars/zabbix-database-server"
+    - "{{ env }}/group_vars/mysql-master"
+  roles:
+    - zabbix-agent
+    - zabbix-database
+    - firewall
+    - htop
+
+- hosts: zabbix_database_slave
+  vars_files:
+    - "{{ env }}/group_vars/mysql-slave"
   roles:
     - zabbix-agent
     - zabbix-database
@@ -10,18 +19,20 @@
 
 - hosts: zabbix_server_backends
   vars_files:
-    - "{{ env }}/group_vars/zabbix-database-server"
+    - "{{ env }}/group_vars/mysql-master"
+    - "{{ env }}/group_vars/mysql-slave"
     - "{{ env }}/group_vars/zabbix-server"
   roles:
     - zabbix-agent
     - zabbix-server
     - zabbix-pagerduty
     - firewall
-    - htop 
+    - htop
 
 - hosts: zabbix_web_servers
   vars_files:
-    - "{{ env }}/group_vars/zabbix-database-server"
+    - "{{ env }}/group_vars/mysql-master"
+    - "{{ env }}/group_vars/mysql-slave"
     - "{{ env }}/group_vars/zabbix-server"
   roles:
     - zabbix-agent
