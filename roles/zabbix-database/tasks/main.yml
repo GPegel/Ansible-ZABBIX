@@ -124,3 +124,42 @@
   tags:
     - zabbix
     - zabbix-database
+
+- name: check if slave is already configured for replication
+  mysql_replication: mode=getslave
+  ignore_errors: true
+  register: slave
+  when: mysql_repl_role == 'slave'
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: get the current master servers replication status
+  mysql_replication: mode=getmaster
+  delegate_to: "{{ mysql_repl_master }}"
+  register: repl_stat
+  when: slave|failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: change the master in slave to start the replication
+  mysql_replication: >
+    mode=changemaster
+    master_host={{ mysql_repl_master }}
+    master_user={{ mysql_repl_user[0].name }}
+    master_password={{ mysql_repl_user[0].pass }}
+    master_log_file={{ repl_stat.File }}
+    master_log_pos={{ repl_stat.Position }}
+  when: slave|failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
+  ignore_errors: True
+  tags:
+    - zabbix
+    - zabbix-database
+
+- name: start replication
+  mysql_replication: mode=startslave
+  when: slave|failed and mysql_repl_role == 'slave' and mysql_repl_master is defined
+  tags:
+    - zabbix
+    - zabbix-database
