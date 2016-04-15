@@ -10,6 +10,7 @@ zabbix_db_web_user: "zabbix-web"
 zabbix_db_web_password: "zabbix-web123"
 repl_user: "repl"
 repl_pass: "repl"
+granting: "REPLICATION CLIENT"
 
 # Database loadbalanced address. If not specified the first server specified in
 # [zabbix_database_backends] is used.

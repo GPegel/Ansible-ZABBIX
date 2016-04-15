@@ -102,7 +102,7 @@
 
 - name: create the replication users
   mysql_user: name={{ repl_user }} password={{ repl_pass }}
-    priv={{ zabbix_db_name }}.*:ALL state=present
+    priv=*.*:{{ granting }} state=present
   when: mysql_repl_role == 'master'
   tags:
     - zabbix
