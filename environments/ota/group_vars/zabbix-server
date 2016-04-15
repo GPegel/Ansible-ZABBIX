@@ -1,6 +1,6 @@
 ---
 # Zabbix Instance name
-zabbix_server_name: "Zabbix Production"
+zabbix_server_name: "Zabbix OTA"
 
 # Override the zabbix server ip for the zabbix server
 zabbix_server_ip: localhost
