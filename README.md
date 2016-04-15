@@ -1,7 +1,7 @@
 # Ansible-ZABBIX playbook for CentOS 7 (incl. mysql replication)
 Created with Ansible version 2.0.1.0
 
-This playbook creates an cluster environment for running Zabbix 3.0.1 on Apache. In my case I've tested this with 2 Zabbix server backends en 2 database backends with database replication*.
+This playbook is capable of creating a High Availability cluster environment for running Zabbix 3.0.1 on Apache. In my case, I've tested this playbook while using 2 Zabbix server backends en 2 database backends (incl. database replication).
 
 The following roles will be installed:
 
@@ -9,7 +9,7 @@ The following roles will be installed:
 2. Firewall (security)
 3. HTOP (small monitoring tool inside Linux)
 4. Pagerduty-Agent (send Zabbix allerts to Pagerduty)
-5. Zabbix (Server, Agent, Database, Repo and frontend)
+5. Zabbix (Server, Agent, Database, Replication, Repo and PHP frontend)
 
 Each role is configured to copy automatically (configuration) files when needed. If you encounter some strange behavior, then edit the configuration files in Ansible and run the playbook again. Usually the files are located in "roles/role-name/templates".
 
@@ -21,6 +21,12 @@ Each role is configured to copy automatically (configuration) files when needed.
 
 ```
 $ ssh-copy-id root@ip-address
+```
+
+or when you have multiple servers who needs the SSH keys:
+
+```
+$ for i in 101 102 103 104 105 106 107 108 109 110; do ssh-copy-id root@192.168.56.$i; done
 ```
 
 # Start running the playbook:

@@ -17,9 +17,3 @@ mysql_users:
     host: "%"
     pass: zabbix123
     priv: "zabbix.*:ALL"
-
-# If the database is replicated the users
-# to be used for replication:
-mysql_repl_user:
-  - name: repl
-    pass: repl
