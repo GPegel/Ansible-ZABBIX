@@ -1,6 +1,15 @@
 ---
 # Role: zabbix-agent
 # File tasks/main.yml
+
+- name: be sure libselinux-python are installed
+  yum:
+    name: "libselinux-python"
+    state: present
+  tags:
+    - zabbix
+    - zabbix-agent
+
 - name: install the Zabbix agent
   yum:
     name: "zabbix-agent"
