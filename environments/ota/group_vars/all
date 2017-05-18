@@ -1,6 +1,6 @@
 ---
 # Zabbix version
-zabbix_version: "3.0"
+zabbix_version: "3.2"
 
 # NTP server
-ntp: 172.29.81.104
+ntp: 0.europe.pool.ntp.org
